@@ -1,127 +1,107 @@
-# JARVIS AI: Autonomous Personal Operating System
+# JARVIS AI — Autonomous Personal Operating System
 
-An advanced, production-ready AI personal operating system modeled on Iron Man's JARVIS assistant, designed to manage the Google Workspace ecosystem (Gmail, Calendar, Sheets, Drive, Tasks, Contacts) and leverage Google Gemini Cognitive APIs for intelligence, data summary, scheduling conflict resolution, and automation.
-
-```
-  ==============================================================
-   ██████  █████  ██████  ██    ██ ███████      █████  ██ 
-        ██ ██   ██ ██   ██ ██    ██ ██          ██   ██ ██ 
-        ██ ███████ ██████  ██    ██ ███████     ███████ ██ 
-   ██   ██ ██   ██ ██   ██  ██  ██       ██     ██   ██ ██ 
-    █████  ██   ██ ██   ██   ████   ███████     ██   ██ ██ 
-  ==============================================================
-```
-
-## System Architecture
-
-- **Frontend (Next.js 16 + React 19 + Tailwind v4 + Framer Motion):** Styled with high-FPS animated orb centers, glassmorphism panel modules, neon glow accents, and custom SVG charting overlays.
-- **Backend (FastAPI + SQLite/PostgreSQL + APScheduler):** Daemon scheduler running hourly news aggregation, morning briefs at 8 AM, and evening diagnostics at 8 PM.
-- **Cognitive Layer (Gemini API):** Custom fallback wrapper with legacy/new SDK compatibility. Handles priority mail routing, news importance calculations, sheets data extraction, and voice command synthesis.
-- **Ecosystem Bridges:** Authenticates scopes dynamically, refreshes tokens securely via OAuth 2.0 flow, and encrypts credentials on disk using a 256-bit Fernet key.
+An immersive, glassmorphic HUD personal assistant and cognitive engine styled after Iron Man's JARVIS, designed to orchestrate your Google Workspace ecosystem.
 
 ---
 
-## Workspace Directory Structure
+## 🌌 System Overview
 
-```
+JARVIS AI is composed of two primary modules:
+1. **Interactive HUD (Frontend):** A premium, glassmorphic dashboard styled with electric blue glowing panels, scanlines, a pulsing animated assistant core, and real-time telemetry gauges.
+2. **Cognitive Orchestrator (Backend):** A high-performance FastAPI service housing the SQLite database, task scheduler, cryptography encryption engines, and the Gemini cognitive layer.
+
+---
+
+## 🛠️ Technology Stack & Languages
+
+### 1. Languages
+- **Frontend:** TypeScript, JavaScript, CSS (Vanilla Custom CSS)
+- **Backend:** Python
+
+### 2. Core Libraries & Tools
+- **Next.js 16:** Managed web framework utilizing the Turbopack compiler.
+- **Tailwind CSS & Lucide Icons:** Modern utility styling and vector telemetry iconography.
+- **FastAPI:** High-performance asynchronous Python web server.
+- **SQLAlchemy:** Object-Relational Mapper for the database schema definition.
+- **Bcrypt:** Secure 256-bit password hashing.
+- **Cryptography (Fernet):** AES-128 bit decryption/encryption engine for securing Google OAuth tokens.
+- **Google API Client:** Integration layers for Gmail, Calendar, Sheets, Drive, Tasks, and Contacts.
+- **APScheduler:** Background daemon runner for active news feeds and sync events.
+- **Docker:** Containerized image builders for multi-environment deployments.
+
+---
+
+## 📦 File Architecture
+
+```text
 jarvis-ai/
-├── backend/
+├── backend/                  # Python FastAPI application
 │   ├── app/
-│   │   ├── agents/
-│   │   │   ├── gmail_agent.py
-│   │   │   ├── calendar_agent.py
-│   │   │   ├── sheets_agent.py
-│   │   │   └── news_agent.py
-│   │   ├── main.py
-│   │   ├── config.py
-│   │   ├── database.py
-│   │   ├── models.py
-│   │   ├── schemas.py
-│   │   ├── auth.py
-│   │   ├── gemini.py
-│   │   ├── google_services.py
-│   │   └── scheduler.py
-│   ├── Dockerfile
-│   └── requirements.txt
-├── frontend/
+│   │   ├── agents/           # Specialized worker models (Gmail, Calendar, etc.)
+│   │   ├── auth.py           # Native bcrypt hashing & token verification
+│   │   ├── config.py         # Environmental settings & schemas
+│   │   ├── database.py       # SQL Alchemy database config
+│   │   ├── main.py           # ASGI App entry, Lifespan scopes & API routes
+│   │   ├── models.py         # SQLAlchemy data schemas
+│   │   └── schemas.py        # Pydantic validation schemas
+│   ├── Dockerfile            # Container definition (Root-context)
+│   └── requirements.txt      # Python dependencies manifest
+├── frontend/                 # Next.js web interface
 │   ├── src/
-│   │   ├── app/
-│   │   │   ├── layout.tsx
-│   │   │   ├── page.tsx
-│   │   │   └── globals.css
-│   │   ├── components/
-│   │   │   ├── LoginScreen.tsx
-│   │   │   ├── DashboardView.tsx
-│   │   │   ├── AssistantView.tsx
-│   │   │   ├── InboxView.tsx
-│   │   │   ├── CalendarView.tsx
-│   │   │   ├── SheetsView.tsx
-│   │   │   ├── DriveView.tsx
-│   │   │   ├── NewsView.tsx
-│   │   │   ├── TasksView.tsx
-│   │   │   ├── MemoryView.tsx
-│   │   │   ├── AutomationsView.tsx
-│   │   │   ├── AnalyticsView.tsx
-│   │   │   ├── SettingsView.tsx
-│   │   │   └── DeveloperConsoleView.tsx
-│   │   └── utils/
-│   │       └── api.ts
-│   ├── Dockerfile
-│   └── package.json
-├── docker-compose.yml
-└── run_jarvis.ps1
+│   │   ├── app/              # Layouts, styling, and main entry
+│   │   ├── components/       # Interface HUD panels (Assistant, Inbox, Settings)
+│   │   └── utils/            # API client fetch wrappers and mock datasets
+│   ├── Dockerfile            # Frontend container definition
+│   └── package.json          # Node dependencies manifest
+├── render.yaml               # Render Blueprint service orchestrator
+├── docker-compose.yml        # Local Docker-Compose runtime config
+└── README.md                 # System documentation
 ```
 
 ---
 
-## One-Click Local Setup (Windows PowerShell)
+## 🚀 Live Cloud Deployment
 
-Ensure that **Python 3.10+** and **Node.js v20+** are installed.
+JARVIS AI has been configured and deployed to production on:
+- **Frontend:** Hosted on **Vercel** (Next.js serverless deployment).
+- **Backend & Database:** Hosted on **Render** (Docker containerized web service and managed Postgres database).
 
-1. Open PowerShell in the project directory.
-2. Run the initializer script:
+*Note: Custom environment variables (`NEXT_PUBLIC_API_URL`, `DATABASE_URL`, and Google OAuth tokens) are dynamically linked inside the Vercel and Render setting panels to keep secrets completely private and secure.*
+
+---
+
+## 🔑 Access Credentials
+
+To log in and initialize the core:
+* **System Identifier:** `admin@jarvis.ai`
+* **Access Code:** `jarvispass`
+
+---
+
+## 🖥️ Local Execution
+
+### 1. Backend Server Setup
+1. Navigate to the `backend/` directory.
+2. Initialize virtual environment and install packages:
    ```powershell
-   .\run_jarvis.ps1
+   python -m venv venv
+   .\venv\Scripts\activate
+   pip install -r requirements.txt
    ```
-3. The script will automatically:
-   - Create a Python virtualenv and install libraries in `backend`.
-   - Boot the Uvicorn FastAPI server on `http://localhost:8000`.
-   - Install React modules and boot Next.js on `http://localhost:3000`.
-   - Open browser windows to the landing page.
+3. Create a `.env` file containing your credentials.
+4. Launch the server:
+   ```powershell
+   python -m uvicorn app.main:app --port 8000
+   ```
 
----
-
-## Docker Compose Setup (Production Multi-Container)
-
-Ensure Docker Desktop is active. Run:
-
-```bash
-docker-compose up --build
-```
-
-Services exposed:
-- **FastAPI Core Endpoint:** `http://localhost:8000`
-- **Dashboard UI Workspace:** `http://localhost:3000`
-- **PostgreSQL Database Engine:** Port `5432`
-- **Redis Cache Instance:** Port `6379`
-
----
-
-## Decryption Credentials Checklist
-
-JARVIS utilizes JWT-based session security. Use the default login bypass parameters:
-- **System Identifier:** `admin@jarvis.ai`
-- **Access Code:** `jarvispass`
-
-You can customize user properties, core language styles, and voices directly within the **Memory View** panel.
-
----
-
-## Key Feature Capabilities
-
-1. **AI Dashboard Core:** Time/weather stats, calendar overlays, unread emails counts, and news feeds. Clicking the central pulsing orb initiates acoustic browser voice dictation.
-2. **Gmail Agent:** Categorization levels (High, Medium, Low), action points extraction lists, meeting triggers alerts, and context drafting replies.
-3. **Calendar Booking:** Schedules meetings, checks start/end times with database entries, displays **CONFLICT DETECTED** panels when overlaps occur, and proposes free slots instantly.
-4. **Sheets Explorer:** Automatically visualizes rows in neon grids, analyzes cost/revenue distributions, and charts trends with SVG layouts.
-5. **News Intelligence:** Hourly aggregator fetching Google News RSS feeds, analyzing relevance scores using Gemini, and automatically appending row details to target Google Sheet ID `1NUNNfqbJoE09j6YNs3v5nsSwg0N5piDTQf2YilT-R4c`.
-6. **Linguistic Terminal:** Renders diagnostic logging directly over a WebSocket connection `/ws/logs`.
+### 2. Frontend Interface Setup
+1. Navigate to the `frontend/` directory.
+2. Install packages:
+   ```powershell
+   npm install
+   ```
+3. Run the development server:
+   ```powershell
+   npm run dev
+   ```
+4. Access the system core at `http://localhost:3000`.
