@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: jarvis-backend
+    env: docker
+    dockerfilePath: backend/Dockerfile
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: jarvis-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 1440
+      - key: ENCRYPTION_KEY
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_REDIRECT_URI
+        value: https://jarvis-backend.onrender.com/api/auth/google/callback
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: GOOGLE_SHEET_ID
+        sync: false
+
+databases:
+  - name: jarvis-db
+    plan: free

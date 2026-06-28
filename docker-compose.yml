@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: jarvis_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: jarvis_user
+      POSTGRES_PASSWORD: jarvis_secure_password
+      POSTGRES_DB: jarvis_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - jarvis_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: jarvis_redis
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - jarvis_network
+
+  backend:
+    build: ./backend
+    container_name: jarvis_backend
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://jarvis_user:jarvis_secure_password@db:5432/jarvis_db
+      - REDIS_URL=redis://redis:6379/0
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - GOOGLE_REDIRECT_URI=${GOOGLE_REDIRECT_URI}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - GOOGLE_SHEET_ID=${GOOGLE_SHEET_ID}
+    depends_on:
+      - db
+      - redis
+    networks:
+      - jarvis_network
+
+  frontend:
+    build: ./frontend
+    container_name: jarvis_frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - jarvis_network
+
+volumes:
+  postgres_data:
+
+networks:
+  jarvis_network:
+    driver: bridge
